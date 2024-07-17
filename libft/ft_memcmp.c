@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mundare <mundare <mundare@student.42.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 13:44:34 by mundare           #+#    #+#             */
-/*   Updated: 2024/07/17 13:44:34 by mundare          ###   ########.fr       */
+/*   Created: 2024/07/17 17:16:31 by mundare           #+#    #+#             */
+/*   Updated: 2024/07/17 17:16:31 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*str;
+	char	*str1;
+	char	*str2;
 	size_t	i;
 
 	i = 0;
-	str = (char *)s;
+	str1 = (char *)s1;
+	str2 = (char *)s2;
 	while (i < n)
 	{
-		if ((unsigned char)str[i] == (unsigned char)c)
-			return ((char *)s + i);
+		if (str1[i] != str2[i])
+			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 // int main(void)
 // {
-//     char str[] = "abcdef";
-//     printf("%s",ft_memchr(str,100,4));
-//     return(0);
+//     char str1[] = "abcd";
+//     char str2[] = "abcd5";
+//     printf("%d",ft_memcmp(str1,str2,5));
+//     return (0);
 // }
