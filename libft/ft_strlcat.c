@@ -26,7 +26,6 @@ size_t	ft_strlcat(char *dest, const char *src, size_t len)
 		dest[des_size] = src[des_size - i];
 		des_size++;
 	}
-    printf("%s",dest);
 	if (i < len)
 		dest[des_size] = '\0';
 	return (i + ft_strlen(src));
