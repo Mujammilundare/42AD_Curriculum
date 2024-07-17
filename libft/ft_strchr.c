@@ -27,7 +27,7 @@ char	*ft_strchr(const char *s, int i)
 // int main(void)
 // {
 // 	char *str = "abcdef";
-// 	char *output = ft_strchr(str,98);
+// 	char *output = ft_strchr(str,67);
 // 	printf("%s", output);
 //     return (0);
 // }
