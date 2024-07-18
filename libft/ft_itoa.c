@@ -39,12 +39,12 @@ long	abs_val(long n)
 	return (nb);
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	unsigned int	nbr;
-	int		sign;
-	int		len;
-	char		*str;
+	int				sign;
+	int				len;
+	char			*str;
 
 	sign = 0;
 	if (n < 0)
