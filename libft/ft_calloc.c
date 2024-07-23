@@ -16,14 +16,9 @@ void	*ft_calloc(size_t elm_count, size_t elm_size)
 {
 	void	*ptr;
 
-	ptr = malloc(elm_size * elm_count);
-	if (!ptr)
-		return (NULL);
-	ft_bzero(ptr, elm_count);
+	ptr = malloc(elm_count * elm_size);
+	if (ptr == NULL)
+		return (ptr);
+	ft_bzero(ptr, elm_size * elm_count);
 	return (ptr);
 }
-// int main(void)
-// {
-//     ft_calloc(5,5);
-//     return (0);
-// }

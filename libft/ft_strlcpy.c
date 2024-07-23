@@ -17,23 +17,14 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t len)
 	size_t	i;
 
 	i = 0;
-	if (!src || !dest)
-		return (0);
-	if (len == 0)
-		return (ft_strlen(src));
-	while (src[i] != '\0' && i < len - 1)
+	while (src[i] != '\0' && i + 1 < len)
 	{
 		dest[i] = src[i];
 		i++;
 	}
-	dest[i] = '\0';
-	return (ft_strlen(src));
+	if (i < len)
+		dest[i] = '\0';
+	while (src[i] != '\0')
+		i++;
+	return (i);
 }
-
-// int main(void)
-// {
-//     char src[] = "abcd";
-//     char dest[] = "xxx";
-//     ft_strlcpy(dest,src,3);
-//     return (0);
-// }

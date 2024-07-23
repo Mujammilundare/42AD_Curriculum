@@ -18,8 +18,3 @@ int	ft_isprint(int i)
 		return (1);
 	return (0);
 }
-// int main(void)
-// {
-// 	rintf("%d",ft_isprint(48));
-//     return (0);
-// }

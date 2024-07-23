@@ -17,15 +17,11 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	unsigned char		*d_ptr;
 	const unsigned char	*s_ptr;
 
+	if (!dest && !src)
+		return (0);
 	d_ptr = (unsigned char *)dest;
 	s_ptr = (unsigned char *)src;
 	while (n--)
 		*d_ptr++ = *s_ptr++;
 	return (dest);
 }
-// int main(void)
-// {
-//        char src[] = "world"; 
-//        char dest[] = "hello";
-//        printf("%s",ft_memcpy(dest,src,2));
-// }

@@ -24,10 +24,3 @@ int	ft_strncmp(const char *s1, char *s2, size_t n)
 		return (0);
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
-// int main(void)
-// {
-// 	char *str1 = "abcdef";
-// 	char *str2 = "abcde1";
-// 	printf("%d", ft_strncmp(str1,str2,6));
-//     return (0);
-// }

@@ -18,8 +18,3 @@ int	ft_toupper(int i)
 		return (i - 32);
 	return (i);
 }
-// int main(void)
-// {
-//     printf("%c",ft_toupper(97));
-//     return (0);
-// }

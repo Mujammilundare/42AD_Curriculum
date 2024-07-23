@@ -36,9 +36,3 @@ int	ft_atoi(const char *str)
 	}
 	return (res * neg);
 }
-// int main(void)
-// {
-//     char str[] = "-1234ab567";
-//     printf("%d",ft_atoi(str));
-//     return (0);
-// }

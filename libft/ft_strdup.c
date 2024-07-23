@@ -24,9 +24,3 @@ char	*ft_strdup(const char *s1)
 	ptr = ft_memcpy(ptr, s1, len);
 	return (ptr);
 }
-// int main(void)
-// {
-//     char src[] = "abcd";
-//     ft_strdup(src);
-//     return(0);
-// }

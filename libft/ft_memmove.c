@@ -17,6 +17,8 @@ void	*ft_memmove(void *dest, const void *src, size_t len)
 	unsigned char	*d_ptr;
 	unsigned char	*s_ptr;
 
+	if (!dest && !src)
+		return (0);
 	d_ptr = (unsigned char *)dest;
 	s_ptr = (unsigned char *)src;
 	if (dest > src)
@@ -27,9 +29,3 @@ void	*ft_memmove(void *dest, const void *src, size_t len)
 	}
 	return (ft_memcpy(d_ptr, s_ptr, len));
 }
-// int main(void)
-// {
-//     char src[] = "abcde";
-//     char dest[] = "vxyz";
-//     printf("%s",ft_memmove(dest,src,2));
-// }

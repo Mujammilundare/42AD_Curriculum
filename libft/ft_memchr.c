@@ -27,9 +27,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-// int main(void)
-// {
-//     char str[] = "abcdef";
-//     printf("%s",ft_memchr(str,100,4));
-//     return(0);
-// }

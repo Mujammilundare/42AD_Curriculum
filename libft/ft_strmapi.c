@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mundare <mundare <mundare@student.42.fr    +#+  +:+       +#+        */
+/*   By: mundare <mundare@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:35:00 by mundare           #+#    #+#             */
-/*   Updated: 2024/07/18 15:20:45 by mundare          ###   ########.fr       */
+/*   Updated: 2024/07/19 20:01:33 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	str[i] = '\0';
 	return (str);
 }
-// char uppercase(unsigned int index, char c)  
-// {  
-// 	if (c >= 'a' && c <= 'z')  
-// 		c = c - 'a' + 'A';  
-// 	return c;  
-// } 
-// int main(void)
-// {
-// 	char org_str[] = "testme";
-// 	printf("%s",org_str);
-// 	printf("%s",ft_strmapi(org_str,uppercase));
-// 	return(0);
-// }
