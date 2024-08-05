@@ -6,13 +6,13 @@
 /*   By: mundare <mundare@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:29:22 by mundare           #+#    #+#             */
-/*   Updated: 2024/08/05 17:29:31 by mundare          ###   ########.fr       */
+/*   Updated: 2024/08/05 18:23:52 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-ssize_t	check(va_list args, const char c)
+ssize_t	verify_n_print(va_list args, const char c)
 {
 	ssize_t	len;
 
@@ -48,7 +48,7 @@ ssize_t	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			len += check(args, format[i]);
+			len += verify_n_print(args, format[i]);
 		}
 		else
 			len += ft_putchar(format[i]);
@@ -57,3 +57,13 @@ ssize_t	ft_printf(const char *format, ...)
 	va_end(args);
 	return (len);
 }
+
+// int main(void)
+// {
+//     //char c = 'X';
+//     char s[10] = " 0";
+//     //ft_printf("%d",10);
+//     //ft_printf("%c",c);
+//     ft_printf("%s",s);
+//     return (0);
+// }

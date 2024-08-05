@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_string.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mundare <mundare@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/05 17:29:54 by mundare           #+#    #+#             */
-/*   Updated: 2024/08/05 18:23:48 by mundare          ###   ########.fr       */
+/*   Created: 2024/08/05 17:30:36 by mundare           #+#    #+#             */
+/*   Updated: 2024/08/05 18:19:50 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <unistd.h>
+size_t	ft_strlen(const char *s)
+{
+	int	i;
 
-ssize_t	ft_putchar(char c);
-ssize_t	ft_putstr(char *s);
-ssize_t	ft_putnbr(int n);
-ssize_t	ft_putunbr(unsigned int n);
-ssize_t	ft_puthexa(unsigned long long n, char c);
-ssize_t	ft_printf(const char *format, ...);
-ssize_t	ft_putptr(void *ptr);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
-#endif
+ssize_t	ft_putstr(char *s)
+{
+	if (!s)
+		s = "(null)";
+	return (write(1, s, ft_strlen(s)));
+}
+
+ssize_t	ft_putchar(char c)
+{
+	return (write(1, &c, 1));
+}
