@@ -6,7 +6,18 @@
 /*   By: mundare <mundare@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 20:17:13 by mundare           #+#    #+#             */
-/*   Updated: 2024/09/11 20:17:19 by mundare          ###   ########.fr       */
+/*   Updated: 2024/09/11 20:30:15 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
+char *get_next_line(int fd)
+{
+    
+}
+
+int main(void)
+{
+    return (0);
+}
