@@ -6,7 +6,7 @@
 /*   By: mundare <mundare@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 20:17:13 by mundare           #+#    #+#             */
-/*   Updated: 2024/09/12 18:53:30 by mundare          ###   ########.fr       */
+/*   Updated: 2024/09/12 19:41:50 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,16 @@ char	*get_next_line(int fd)
 int main(void)
 {
     int fd;
+    char *line;
 
     fd = open("file.txt",O_RDONLY | O_CREAT);
-    
+    while (fd > 0)
+    {
+        line = get_next_line(fd);
+        if(line == NULL)
+            break;
+        printf("%s",line);
+        free(line);
+    }
     return (0);
 }
