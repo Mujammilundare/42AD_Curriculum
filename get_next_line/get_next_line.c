@@ -6,120 +6,103 @@
 /*   By: mundare <mundare@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 20:17:13 by mundare           #+#    #+#             */
-/*   Updated: 2024/09/12 19:41:50 by mundare          ###   ########.fr       */
+/*   Updated: 2025/01/08 15:29:18 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*reader(int fd, char *buf, char *str)
+// 1. malloc buffer
+static char	*ft_increase_buffer(int fd, char *buffer)
 {
-	char	*s;
-	int		i;
+	char	*more_buffer;
+	int		bytes_read;
 
-	i = 1;
-	while ((!ft_strchr(str, '\n')) && i > 0)
+	bytes_read = 1;
+	more_buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!more_buffer)
+		return (NULL);
+	while (!ft_strchr(buffer, '\n') && bytes_read)
 	{
-		i = read(fd, buf, BUFFER_SIZE);
-		if (i < 0)
+		bytes_read = read(fd, more_buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
 		{
-			free(buf);
-			free(str);
-			return (NULL);
+			free(more_buffer);
+			return (0);
 		}
-		if (i == 0)
-		{
-			free(buf);
-			return (str);
-		}
-		buf[i] = '\0';
-		s = str;
-		str = ft_strjoin(str, buf);
-		free(s);
+		more_buffer[bytes_read] = '\0';
+		buffer = ft_strjoin(buffer, more_buffer);
 	}
-	free(buf);
-	return (str);
+	free (more_buffer);
+	return (buffer);
 }
 
-char	*current(char *str)
+// 2. get line to return
+static char	*ft_get_line(char *buffer)
 {
+	char	*line;
 	size_t	i;
-	char	*s;
 
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	if (!buffer[i])
+		return (0);
+	while (buffer[i] != '\n' && buffer[i])
 		i++;
-	if (str[i] == '\n')
-		i++;
-	s = malloc(i + 1);
-	if (!s)
+	line = (char *)malloc((i + 2) * sizeof(char));
+	if (!line)
 		return (NULL);
-	s[i] = '\0';
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	while (buffer[i] != '\n' && buffer[i])
 	{
-		s[i] = str[i];
+		line[i] = buffer[i];
 		i++;
 	}
-	if (str[i] == '\n')
-		s[i] = '\n';
-	return (s);
+	if (buffer[i] == '\n')
+		line[i++] = '\n';
+	line[i] = '\0';
+	return (line);
 }
 
-char	*next(char *str)
+// 3. re-define buffer
+char	*ft_new_buffer(char *buffer)
 {
+	char	*new_buffer;
+	size_t	length;
 	size_t	i;
-	char	*s;
+	size_t	j;
 
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	j = 0;
+	while (buffer[i] != '\n' && buffer[i])
 		i++;
-	if (str[i] == '\n')
-		i++;
-	if (!str[i])
+	if (!buffer[i])
 	{
-		free(str);
-		return (NULL);
+		free (buffer);
+		return (0);
 	}
-	s = ft_strdup(str + i);
-	if (!s)
+	length = ft_strlen(buffer) - i;
+	new_buffer = (char *)malloc((length + 1) * sizeof(char));
+	if (!new_buffer)
 		return (NULL);
-	free(str);
-	return (s);
+	i++;
+	while (buffer[i])
+		new_buffer[j++] = buffer[i++];
+	new_buffer[j] = '\0';
+	free(buffer);
+	return (new_buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*buf;
-	static char	*str;
-	char		*s;
+	static char	*buffer;
+	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
-		return (NULL);
-	buf = malloc((size_t)BUFFER_SIZE + 1);
-	if (!buf)
-		return (NULL);
-	str = reader(fd, buf, str);
-	if (!str)
-		return (NULL);
-	s = current(str);
-	str = next(str);
-	return (s);
-}
-
-int main(void)
-{
-    int fd;
-    char *line;
-
-    fd = open("file.txt",O_RDONLY | O_CREAT);
-    while (fd > 0)
-    {
-        line = get_next_line(fd);
-        if(line == NULL)
-            break;
-        printf("%s",line);
-        free(line);
-    }
-    return (0);
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	buffer = ft_increase_buffer(fd, buffer);
+	if (!buffer)
+		return (0);
+	line = ft_get_line(buffer);
+	buffer = ft_new_buffer(buffer);
+	return (line);
 }
