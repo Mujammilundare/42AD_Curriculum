@@ -1,0 +1,8 @@
+{
+   suppress all errors from /bin/
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*
+   obj:/bin/*
+   obj:/usr/bin/*
+}
