@@ -6,103 +6,88 @@
 /*   By: mundare <mundare@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 20:17:13 by mundare           #+#    #+#             */
-/*   Updated: 2025/01/08 17:35:30 by mundare          ###   ########.fr       */
+/*   Updated: 2025/01/16 15:21:38 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*reader(int fd, char *buf, char *str)
+char	*nxt_remainder(char *s_remainder)
 {
-	char	*s;
+	char	*new_remainder;
+	char	*str;
+	int		len;
+
+	str = ft_strchr(s_remainder, '\n');
+	if (!str)
+	{
+		new_remainder = NULL;
+		return (ft_free(&s_remainder));
+	}
+	else
+		len = (str - s_remainder) + 1;
+	if (!s_remainder[len])
+		return (ft_free(&s_remainder));
+	new_remainder = ft_substr(s_remainder, len, ft_strlen(s_remainder) - len);
+	ft_free(&s_remainder);
+	if (!new_remainder)
+		return (NULL);
+	return (new_remainder);
+}
+
+char	*new_line(char *s_remainder)
+{
+	char	*line;
+	char	*str;
+	int		len;
+
+	str = ft_strchr(s_remainder, '\n');
+	len = (str - s_remainder) + 1;
+	line = ft_substr(s_remainder, 0, len);
+	if (!line)
+		return (NULL);
+	return (line);
+}
+
+char	*reader(int fd, char *s_remainder)
+{
 	int		i;
+	char	*temp_buf;
 
 	i = 1;
-	while ((!ft_strchr(str, '\n')) && i > 0)
+	temp_buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!temp_buf)
+		return (ft_free(&s_remainder));
+	temp_buf[0] = '\0';
+	while (i > 0 && !ft_strchr(temp_buf, '\n'))
 	{
-		i = read(fd, buf, BUFFER_SIZE);
-		if (i < 0)
+		i = read(fd, temp_buf, BUFFER_SIZE);
+		if (i > 0)
 		{
-			free(buf);
-			free(str);
-			return (NULL);
+			temp_buf[i] = '\0';
+			s_remainder = ft_strjoin(s_remainder, temp_buf);
 		}
-		if (i == 0)
-		{
-			free(buf);
-			return (str);
-		}
-		buf[i] = '\0';
-		s = str;
-		str = ft_strjoin(str, buf);
-		free(s);
 	}
-	free(buf);
-	return (str);
-}
-
-char	*current(char *str)
-{
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (str[i] == '\n')
-		i++;
-	s = malloc(i + 1);
-	if (!s)
-		return (NULL);
-	s[i] = '\0';
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		s[i] = str[i];
-		i++;
-	}
-	if (str[i] == '\n')
-		s[i] = '\n';
-	return (s);
-}
-
-char	*next(char *str)
-{
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (str[i] == '\n')
-		i++;
-	if (!str[i])
-	{
-		free(str);
-		return (NULL);
-	}
-	s = ft_strdup(str + i);
-	if (!s)
-		return (NULL);
-	free(str);
-	return (s);
+	free(temp_buf);
+	if (i == -1)
+		return (ft_free(&s_remainder));
+	return (s_remainder);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*buf;
-	static char	*str;
-	char		*s;
+	static char	*s_remainder;
+	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+	if (fd < 0)
 		return (NULL);
-	buf = malloc((size_t)BUFFER_SIZE + 1);
-	if (!buf)
+	if ((s_remainder && !ft_strchr(s_remainder, '\n')) || !s_remainder)
+		s_remainder = reader(fd, s_remainder);
+	if (!s_remainder)
 		return (NULL);
-	str = reader(fd, buf, str);
-	if (!str)
-		return (NULL);
-	s = current(str);
-	str = next(str);
-	return (s);
+	line = new_line(s_remainder);
+	if (!line)
+		return (ft_free(&s_remainder));
+	s_remainder = nxt_remainder(s_remainder);
+	return (line);
 }
