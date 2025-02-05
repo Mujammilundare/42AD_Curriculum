@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_h.h"
+#include "push_swap.h"
 
 void	free_array(char **str_arr)
 {
@@ -92,15 +92,57 @@ char	**ft_split(char const *s, char c)
 
 	str_arr = NULL;
 	if (s == NULL)
-	{
 		return (NULL);
-	}
 	str_arr = allocate(str_arr, s, c);
 	return (str_arr);
 }
-int *ft_argument_list(int **av)
-{
-    int tab[] = NULL;
 
-    return (tab);
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	neg;
+	int	res;
+
+	i = 0;
+	neg = 1;
+	res = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			neg *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = (str[i] - '0') + (res * 10);
+		i++;
+	}
+	return (res * neg);
+}
+
+char **ft_argument_list(int ac, char **av)
+{
+    int i;
+	int j;
+	char **tab;
+	
+	tab = malloc(sizeof(char *) * ac);
+    i = 1;
+	j = 0;
+	while (av[i])
+	{
+		tab[j] = copystr(s, c, tab[j]);
+
+
+
+		// printf("%s ",av[i]);
+		// j = 0;
+		// while (av[j])
+		// 	tab[i] = av[++j];
+		// i++;
+	}	
+	tab[i] = 0;
+	return (ft_split(tab, 32));
 }

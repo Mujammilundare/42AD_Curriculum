@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   push_swap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mundare <mundare@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 08:03:50 by mundare           #+#    #+#             */
-/*   Updated: 2025/02/05 08:03:50 by mundare          ###   ########.fr       */
+/*   Created: 2025/02/05 08:04:32 by mundare           #+#    #+#             */
+/*   Updated: 2025/02/05 08:04:32 by mundare          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
-int main(int ac, char **av)
-{
-    char **tab = NULL;
-
-    if (ac == 1)
-        exit(0);
-    if(!validate_arg(av))
-		return(write(1,"Error\n",6));
-
-
-    return (0);
-}
+int     validate_arg(char **av);
+char    **ft_split(char const *s, char c);
+char    **ft_argument_list(int ac, char **av);
+void	*ft_calloc(size_t elm_count, size_t elm_size);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+int     ft_atoi(const char *str);
